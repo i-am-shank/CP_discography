@@ -25,6 +25,24 @@ typedef tree<int, null_type, greater_equal<int>, rb_tree_tag, tree_order_statist
 // 4th arg  -->  Ordered set is implemented using Red-black tree
 
 
+/*
+Methods available for ordered_set :-
+  --> insert(x)  =>  insert value (x) in ordered_set
+  --> begin()
+  --> end()
+  --> rbegin()
+  --> rend()
+  --> lower_bound()
+  --> upper_bound()
+  --> find_by_order(idx)  =>  find value present at index (idx).
+  --> order_of_key(val)  =>  counts no. of elements smaller than (val). Or index of (val).
+  --> find()
+  --> erase()
+  --> clear()
+  --> size()
+*/
+
+
 int main() {
   ordered_set1 st1;
   ordered_set2 st2;
@@ -51,19 +69,20 @@ int main() {
     cout << it << " ";
   }
   cout << "\n";
-  cout << "Decreasing ordered-set :\n";
-  for(auto it: st2) {
-    cout << it << " ";
+  cout << "Decreasing ordered-set (in reverse order) :\n";
+  for(auto it=st2.rbegin(); it!=st2.rend(); it++) {
+    cout << *(it) << " ";
   }
   cout << "\n";
   cout << "Increasing ordered-multiset :\n";
-  for(auto it: st3) {
-    cout << it << " ";
+  for(auto it=st3.begin(); it!=st3.end(); it++) {
+    cout << *(it) << " ";
   }
   cout << "\n";
   cout << "Decreasing ordered-multiset :\n";
-  for(auto it: st4) {
-    cout << it << " ";
+  ordered_set4::iterator it;
+  for(it=st4.begin(); it!=st4.end(); it++) {
+    cout << *(it) << " ";
   }
   cout << "\n";
 
@@ -93,5 +112,26 @@ int main() {
   int cnt3 = st3.order_of_key(4);
   int cnt4 = st3.order_of_key(6);
   cout << cnt3 << " " << cnt4 << "\n";
+
+  // find() , erase() --------------
+  int input1;
+  cin >> input1;
+  if(st1.find(input1) != st1.end()) {
+    auto it = st1.find(input1);
+    int idx = st1.order_of_key(input1);
+    st1.erase(it);
+    cout << "Element deleted : " << *(it) << " at index " << idx << "\n";
+  }
+
+  // empty() , size() , clear() --------------
+  if(!st1.empty()) {
+    cout << "Size of st1 before = " << st1.size() << "\n";
+    st1.clear();
+    cout << "Size of st1 after = " << st1.size() << "\n";
+  }
+  else {
+    cout << "st1 is empty.\n";
+  }
+
   return 0;
 }
